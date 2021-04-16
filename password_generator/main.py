@@ -1,39 +1,21 @@
 # */--НАСТРОЙКИ---
 
 file_open = 	True 	# Необходимо ли открывать текстовый файл, в который был записан пароль сразу послее выполнения программы
-file_remove = 	False 	# Необходимо ли удалять файл с паролем сразу после закрытия окна
-sys_version = "1.3.7"
-
 # --------------*/
 
 from os import system							#Необходимо для запуска текстовика
-from os import remove							#Необходимо для удаление текстовика после открытия
 from random import randint as rand 				# Рандом случайного целого числа (int) в диапозоне. Параметры (начальное число(int), конечное число(int))
-
-#Группы символов
-
-letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-nums 	= "1234567890"
-symbols = "#$_[].=+-|"	#Для добавления спец. символов прописывайте их слитно
-
-#Глобальные переменные
-
-print("ГЕНЕРАТОР ПАРОЛЕЙ ",sys_version,"\n")
-print("**********************\n\n")
 
 
 # -------------------------------------------------------------------------------------------
 #Программа
 def main():
-	chars 		= ''
-	result_t 	= ''
-	pass_len 	= 0
-	pass_chose 	= 0
+	
 
 	while(True):
 		
 		text = "Выберете шаблон:\n1 - Классический генератор паролей\n2 - Простой и Надежный шаблон "
-		print(text)
+		printText(text)
 		try:
 			value = int(input())
 			if value == 1:
@@ -42,20 +24,16 @@ def main():
 			elif value == 2:
 				getResult(pattern1())
 				break
-
-			else:
-				system('cls||clear')
 		except:
-			system('cls||clear')
-
+			continue
 
 #--- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 def getRandomChar(text):
 	return text[rand(0,len(text)-1)]
 
 def getResult(result):
-	system('cls||clear')
-	print("**********************\n\nВаш пароль: ",result,"\n\n**********************\n")
+	text = "\nВаш пароль: "+result+"\n\n**********************\n"
+	printText(text)
 
 	file = open('pass.txt', 'w')
 	file.write(result)
@@ -64,33 +42,39 @@ def getResult(result):
 
 	print("ПРОГРАММА ЗАВЕРШЕНА\n\n**********************\n")
 	if file_open: system("notepad 'pass.txt'")
-	if file_remove: 
-		remove('pass.txt') 
-	else: 
-		print("Пароль сохранен в файл 'pass.txt'")
+	print("Файл сохранен в 'pass.txt'")
+
+def printText(text):
+	system('cls||clear')
+	print("ГЕНЕРАТОР ПАРОЛЕЙ 1.4\n")
+	print("**********************\n")
+	print(text)
 # -------------------------------------------------------------------------------------------
 #--- ШАБЛОНЫ
 def pattern_classic():
 	letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 	nums 	= "1234567890"
 	symbols = "#$_[].=+-|"	#Для добавления спец. символов прописывайте их слитно
+	chars 		= ''
+	result_t 	= ''
+	pass_len 	= 0
+	pass_chose 	= 0
 	while(True):
 		text = "Длина пароля от 1 до 128 : "
-		print(text)
+
+		printText(text)
 		try:
 			pass_len = int(input())
-			if pass_len >= 129 or pass_len <= 0:
-				system('cls||clear')
-			else:
+			if pass_len >= 1 and pass_len <= 128:
 				break
-			
 		except:
-			system('cls||clear')
+			continue
 
 	while(True):
-		system('cls||clear')
 		try:
-			print("\n**********************\nУкажите номер групп символов (1-4)\n1 - Только буквы\n2 - Только цифры\n3 - Буквы + цифры\n4 - Буквы + цифры + спец. символы")
+			text = "Укажите номер групп символов (1-4)\n1 - Только буквы\n2 - Только цифры\n3 - Буквы + цифры\n4 - Буквы + цифры + спец. символы"
+
+			printText(text)
 			pass_chose = int(input())				
 			if pass_chose == 1:
 				chars = letters
@@ -101,14 +85,13 @@ def pattern_classic():
 			elif pass_chose == 4:
 				chars = letters+nums+symbols
 			else:
-				print("\n**********************\n\nУКАЗАН НЕВЕРНЫЙ ВАРИАНТ\n")
-				continue;
+				continue
 			break		
 		except:
-			print("\n**********************\n\nУКАЗАН НЕВЕРНЫЙ ВАРИАНТ\n")
+			continue
 
 	for i in range(pass_len):
-		result_t += chars[rand(0, len(chars)-1)]
+		result_t += getRandomChar(chars)
 	return result_t
 
 def pattern1():
@@ -119,30 +102,25 @@ def pattern1():
 	result = getRandomChar(lets_big)+getRandomChar(lets_small_vo)+getRandomChar(lets_small)+getRandomChar(lets_big)+getRandomChar(lets_small_vo)+getRandomChar(lets_small)+str(rand(1000,9999))
 	while(True):
 		text = "Использовать спец. символы?\n1 - Да\n2 - Нет"
-		print(text)
+		printText(text)
 		value = int(input())
 		if value == 1:
 			while (True):
 				text1 = "Сколько спец. символов нужно использовать? ( 1 - 4 ) "
-				print(text1)
+				printText(text1)
 				try:
 					value1 = int(input())
 					if value1 >= 1 and value1 <= 4:
 						for i in range(value1):
 							result += getRandomChar(symbols)
 						break
-					else:
-						system('cls||clear')
 				except:
-					system('cls||clear')
+					continue
 		elif value == 2:
 			break
-		else:
-			system('cls||clear')
 
 		break
-				
-	
+
 	return result
 
 main()
