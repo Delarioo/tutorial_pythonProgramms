@@ -2,7 +2,7 @@
 
 file_open = 	True 	# Необходимо ли открывать текстовый файл, в который был записан пароль сразу послее выполнения программы
 file_remove = 	False 	# Необходимо ли удалять файл с паролем сразу после закрытия окна
-sys_version = "1.3.5"
+sys_version = "1.3.7"
 
 # --------------*/
 
@@ -32,20 +32,43 @@ def main():
 
 	while(True):
 		
-		text = "Выберете шаблон:\n1 - Классический генератор паролей\n2 - Надежный шаблон (Примерно 42.2 миллиардов вариантов) "
+		text = "Выберете шаблон:\n1 - Классический генератор паролей\n2 - Простой и Надежный шаблон "
 		print(text)
 		try:
 			value = int(input())
 			if value == 1:
 				getResult(pattern_classic())
+				break
 			elif value == 2:
 				getResult(pattern1())
+				break
 
 			else:
 				system('cls||clear')
 		except:
 			system('cls||clear')
 
+
+#--- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+def getRandomChar(text):
+	return text[rand(0,len(text)-1)]
+
+def getResult(result):
+	system('cls||clear')
+	print("**********************\n\nВаш пароль: ",result,"\n\n**********************\n")
+
+	file = open('pass.txt', 'w')
+	file.write(result)
+	file.close()
+
+
+	print("ПРОГРАММА ЗАВЕРШЕНА\n\n**********************\n")
+	if file_open: system("notepad 'pass.txt'")
+	if file_remove: 
+		remove('pass.txt') 
+	else: 
+		print("Пароль сохранен в файл 'pass.txt'")
+# -------------------------------------------------------------------------------------------
 #--- ШАБЛОНЫ
 def pattern_classic():
 	letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -104,8 +127,8 @@ def pattern1():
 				print(text1)
 				try:
 					value1 = int(input())
-					if value1 >= 1 or value1 <= 4:
-						for i in range(1,value1):
+					if value1 >= 1 and value1 <= 4:
+						for i in range(value1):
 							result += getRandomChar(symbols)
 						break
 					else:
@@ -122,37 +145,23 @@ def pattern1():
 	
 	return result
 
-#--- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-def getRandomChar(text):
-	return text[rand(0,len(text)-1)]
-
-def getResult(result):
-	system('cls||clear')
-	print("**********************\n\nВаш пароль: ",result,"\n\n**********************\n")
-
-	file = open('pass.txt', 'w')
-	file.write(result)
-	file.close()
-
-
-	print("ПРОГРАММА ЗАВЕРШЕНА\n\n**********************\n")
-	if file_open: system("notepad 'pass.txt'")
-	if file_remove: 
-		remove('pass.txt') 
-	else: 
-		print("Пароль сохранен в файл 'pass.txt'")
-
-	quit()
-	
 main()
 
 
 
 """
 [CHANGELOG]
+v 1.3.7 [HOTFIX]
+
+1. Исправление багов нового шаблона
+2. Исправление бага, связанного с зацикливанием программы после генерации пароля по какому-либо шаблону
+3. Удаление информации о примерном количестве вариантов второго шаблона
+
 v 1.3.6
 
 1. Обновление надежного шаблона. Теперь есть возможность вставить спец символы в конце пароля
+2. Преобразование основного генератора в отдельный шаблон с названием "классический"
+
 v 1.3.5 (Тест)
 
 1.Преобразование некоторой части кода в функции для оптимизации кода.
