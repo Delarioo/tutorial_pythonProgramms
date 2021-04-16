@@ -14,7 +14,7 @@ def main():
 
 	while(True):
 		
-		text = "Choose a template:\n1 - Classic password generator\n2 - Simple and Reliable Template "
+		text = "Choose a Pattern:\n1 - Classic password generator\n2 - Simple and Reliable pattern "
 		printText(text)
 		try:
 			value = int(input())
