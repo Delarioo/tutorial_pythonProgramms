@@ -4,7 +4,7 @@ maxRes = 	7		# - Максимальный счёт
 					#
 #####################
 
-version = 	'1.0 [FINAL]'
+version = 	'1.1'
 
 from random import randint as rand
 from os import system
@@ -21,16 +21,17 @@ def pause():
 	input
 
 def getResult(answ, num):
+	enemy = ['','Камень', 'Ножницы', 'Бумага']
 	if answ == num:
-		return "Ничья", -1
+		return "Ничья. У противника "+enemy[num], -1
 	elif answ < num and not (answ == 1 and num == 3):
-		return "Победа", 1
+		return "Победа. У противника "+enemy[num], 1
 	elif answ > num and not (answ == 3 and num == 1):
-		return "Поражение", 0
+		return "Поражение. У противника "+enemy[num], 0
 	elif answ == 3 and num == 1:
-		return 'Победа', 1
+		return "Победа. У противника "+enemy[num], 1
 	elif answ == 1 and num == 3:
-		return 'Поражение', 0
+		return "Поражение. У противника "+enemy[num], 0
 
 def main(maxRes):
 
@@ -69,7 +70,9 @@ if __name__ == '__main__':
 
 ''' 
 CHANGELOG
-[1.0 FINAL]
+[1.1]
+-Добавление информирования о том, что было у противника
+[1.0]
 -Введение системы счета, теперь игру можно выиграть или проиграть.
 -Введение настройки максимального счета
 
