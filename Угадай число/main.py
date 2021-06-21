@@ -19,8 +19,7 @@ def p(txt):
 	print(txt)
 
 def pause():
-	input("\nНажмите ENTER для продолжения!")
-	input
+	system('pause')
 
 def main(min, max, chance):
 	num_min = min
