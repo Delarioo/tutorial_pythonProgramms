@@ -3,7 +3,7 @@ useStaticChance = False 	# Использование статических п�
 chance = 0					# Количество попыток (Должно быть больше нуля)
 addToChances = 2			# Количество попыток, добавляемое к переменной, зависящей от количества букв (Количество букв + значение переменной = количество попыток)
 # Extended settings
-fileWords = 'words.txt'
+fileWords = 'words_example_ru.txt'
 version = '1.0'
 
 ###########
@@ -15,6 +15,7 @@ from random import randint
 
 def main():
 	russian = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя-'
+	# english = 'abcdefghijklmnopqrstuvwxyz-'
 	usedsymbols = ''
 	chances = 0
 	table = loadWords()
@@ -88,7 +89,7 @@ def loadWords():
 
 def p(text):
 	system('cls||clear')
-	print(f'ВИСИЛИЦА [{version}]\n\n********************\n\n')
+	print(f'ВИСЕЛИЦА [{version}]\n\n********************\n\n')
 	print(text)
 
 def pause():
